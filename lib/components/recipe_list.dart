@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 class RecipeList extends StatelessWidget {
 
-  final List<Recipe> recipies = [Recipe(title: 'Test recipe'), Recipe(title: 'Another recipe')];
+  RecipeList(this.recipies);
+
+  final List<Recipe> recipies;
 
   @override
   Widget build(BuildContext context) {
