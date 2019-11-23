@@ -13,7 +13,7 @@ class Recipes extends StatelessWidget {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          // Need to dispose of this?
+          // Need to dispose of this? https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html
           final controller = TextEditingController();
           return Dialog(
             shape: RoundedRectangleBorder(
