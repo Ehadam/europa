@@ -10,16 +10,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Recipe> recipes = <Recipe>[
-    Recipe(title: 'Test recipe'),
-    Recipe(title: 'Another recipe')
-  ];
-
-  void addRecipe(Recipe newRecipe) {
-    setState(() {
-      recipes.add(newRecipe);
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +19,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Recipes(recipes, addRecipe),
+      home: Recipes(),
     );
   }
 }

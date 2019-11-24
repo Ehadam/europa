@@ -1,55 +1,31 @@
+import 'package:europa/components/new_recipe_dialog.dart';
 import 'package:europa/components/recipe_card.dart';
 import 'package:europa/model/recipe.dart';
 import 'package:flutter/material.dart';
 
-class Recipes extends StatelessWidget {
+class Recipes extends StatefulWidget {
+  @override
+  _RecipesState createState() => _RecipesState();
+}
 
-  Recipes(this.recipes, this.addRecipe);
+class _RecipesState extends State<Recipes> {
+  List<Recipe> recipes = <Recipe>[
+    // TODO(ehadam): Populate this with api call
+    Recipe(title: 'Test recipe'),
+    Recipe(title: 'Another recipe')
+  ];
 
-  final List<Recipe> recipes;
-  final Function addRecipe;
+  void addRecipe(Recipe newRecipe) {
+    setState(() {
+      recipes.add(newRecipe);
+    });
+  }
 
-  void _addRecipe(BuildContext context) {
+  void _showRecipeDialog(BuildContext context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          // Need to dispose of this? https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html
-          final controller = TextEditingController();
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-            ),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Recipe Name',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  ),
-                  TextField(controller: controller,),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        FlatButton(
-                          child: Text('SAVE',
-                              style: TextStyle(color: Colors.blue)),
-                          onPressed: () {
-                            addRecipe(Recipe(title: controller.text));
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
+          return NewRecipeDialog(onSave: addRecipe,);
         });
   }
 
@@ -60,12 +36,12 @@ class Recipes extends StatelessWidget {
         title: Text('Recipies!'),
       ),
       body: ListView.builder(
-        itemCount: recipes.length,
-        itemBuilder: (BuildContext context, int index) => RecipeCard(recipes[index])
-      ),
+          itemCount: recipes.length,
+          itemBuilder: (BuildContext context, int index) =>
+              RecipeCard(recipes[index])),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => _addRecipe(context),
+        onPressed: () => _showRecipeDialog(context),
       ),
     );
   }
