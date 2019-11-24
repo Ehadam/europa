@@ -1,4 +1,3 @@
-import 'package:europa/model/recipe.dart';
 import 'package:europa/pages/recipes.dart';
 import 'package:flutter/material.dart';
 
