@@ -35,7 +35,7 @@ class _RecipesState extends State<Recipes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipies!'),
+        title: Text('Recipes!'),
       ),
       body: ListView.builder(
           itemCount: recipes.length,
