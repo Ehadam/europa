@@ -25,7 +25,9 @@ class _RecipesState extends State<Recipes> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return NewRecipeDialog(onSave: addRecipe,);
+          return NewRecipeDialog(
+            onSave: addRecipe,
+          );
         });
   }
 
