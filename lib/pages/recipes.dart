@@ -1,32 +1,16 @@
 import 'package:europa/components/new_recipe_dialog.dart';
 import 'package:europa/components/recipe_card.dart';
 import 'package:europa/model/recipe.dart';
+import 'package:europa/pages/get_recipes.dart';
 import 'package:flutter/material.dart';
 
-class Recipes extends StatefulWidget {
-  @override
-  _RecipesState createState() => _RecipesState();
-}
-
-class _RecipesState extends State<Recipes> {
-  List<Recipe> recipes = <Recipe>[
-    // TODO(ehadam): Populate this with api call
-    Recipe(title: 'Test recipe'),
-    Recipe(title: 'Another recipe')
-  ];
-
-  void addRecipe(Recipe newRecipe) {
-    setState(() {
-      recipes.add(newRecipe);
-    });
-  }
-
+class Recipes extends StatelessWidget {
   void _showRecipeDialog(BuildContext context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return NewRecipeDialog(
-            onSave: addRecipe,
+            onSave: () {},
           );
         });
   }
@@ -37,10 +21,18 @@ class _RecipesState extends State<Recipes> {
       appBar: AppBar(
         title: Text('Recipes!'),
       ),
-      body: ListView.builder(
-          itemCount: recipes.length,
-          itemBuilder: (BuildContext context, int index) =>
-              RecipeCard(recipes[index])),
+      body: FutureBuilder<List<Recipe>>(
+          future: getRecipes(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      RecipeCard(snapshot.data[index]));
+            } else {
+              return Text('No data yet!');
+            }
+          }),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _showRecipeDialog(context),
