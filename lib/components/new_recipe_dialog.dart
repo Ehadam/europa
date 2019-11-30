@@ -25,6 +25,7 @@ class NewRecipeDialog extends StatelessWidget {
             ),
             TextField(
               controller: controller,
+              autofocus: true,
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
